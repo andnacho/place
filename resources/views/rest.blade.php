@@ -66,6 +66,15 @@
     <body>
       
         <h1>Hola</h1>
+
+
+        {{ dd($response) }}
+
+        <script>
+
+            var uno = "nuevo";
+
+        </script>
         
 
     </body>

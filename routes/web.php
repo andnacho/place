@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('rest', function(){
-
-    return view('rest');
-});
+Route::get('rest', 'PlacetopayController@pago');
