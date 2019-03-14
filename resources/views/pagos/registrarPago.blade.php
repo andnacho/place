@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group container">
-                <label for="descripcion" class="col-3">Valor del pago</label>
+                <label for="cantidad" class="col-3">Valor del pago</label>
                 <input type="number" name="cantidad" id="cantidad" value="0" min="1" class="col-3">
             </div>
           </div>

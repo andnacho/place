@@ -47,7 +47,7 @@
                 
               </div>
 
-            <button type="submit" class="btn btn-primary">Crear nueva categoria</button>
+            <button type="submit" class="btn btn-primary">Crear nuevo usuario</button>
             <a href="{{ route('usuario.index')}}"><button type="button" class="btn btn-danger">Cancelar</button></a>
 
         </form>
