@@ -15,6 +15,7 @@ use Dnetix\Redirection\PlacetoPay;
  */
 function placetopay()
 {
+    dd('aquí');
     return new PlacetoPay([
         'login' => getenv('P2P_LOGIN'),
         'tranKey' => getenv('P2P_TRANKEY'),

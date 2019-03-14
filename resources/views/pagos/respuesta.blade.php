@@ -13,15 +13,14 @@
     <div class="container mt-5">
         
     <h1>Resumen</h1>
-
-    <h2> {{ $response->status()->message() }}</h2>
+      
     </div>
 
+{{ dd($response)}}
 
-
-    <div class="container row">
+    <div class="container-fluid row text-center">
         
-     <table class="table table-striped table-inverse table-responsive col-8">
+     <table class="table table-striped table-inverse col-8 mx-auto">
          <thead class="thead-inverse">
              <tr>
                  <th>Descripción</th>
@@ -31,7 +30,7 @@
              </thead>
              <tbody>
                  <tr>
-                     <td>{{ dd('$response->status()') }}</td>
+                     <td></td>
                      <td></td>
                      <td></td>
                  </tr>

@@ -21,6 +21,8 @@ Route::get('/', function () {
 //routes para la generación de pago sencillo
 Route::view('/pagos', 'pagos.registrarPago');
 Route::post('/rest', 'PlacetopayController@pago')->name('pagos.registro');
+Route::get('/response', 'PlacetopayController@respuesta')->name('pagos.respuesta');
+Route::get('/consultar', 'PlacetopayController@consultar');
 
 
 //Resources del almacen

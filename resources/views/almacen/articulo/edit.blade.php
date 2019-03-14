@@ -72,11 +72,7 @@
                     </select>
                   </div>
 
-                  <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                      <label for="imagen">Codigo de barras</label>
-                      <div>{!! DNS1D::getBarcodeSVG($articulo->codigo, "C39") !!}</div>
-                    </div>
-
+                
              <div class="form-group col-lg-12 col-sm-12 col-md-12 col-xs-12">
                <label for="imagen">Cambiar imagen</label>
                <input type="file" class="form-control-file" name="imagen" id="imagen">

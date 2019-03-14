@@ -40,7 +40,7 @@
 
             <div class="form-group container">
                 <label for="cantidad" class="col-3">Valor del pago</label>
-                <input type="number" name="cantidad" id="cantidad" value="0" min="1" class="col-3">
+                <input type="number" name="cantidad" id="cantidad" value="2000" min="1" class="col-3">
             </div>
           </div>
             
@@ -51,7 +51,14 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="//secure.placetopay.com/redirection/lightbox.min.js"></script>
 
+    <script>
+    P.on('response', function(data) {
+        $("#lightbox-response").html(JSON.stringify(data, null, 2));
+    });
 
+    P.init(processUrl);
+</script>
 </body>
 </html>
