@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PlPay;
 use Illuminate\Http\Request;
 use Dnetix\Redirection\PlacetoPay;
 
@@ -34,7 +35,7 @@ class PlacetopayController extends Controller
 
        
         
-        $reference = '123';
+        $reference = PlPay::count() + 1;
         // Request Information, through a PlacetopayRepositorie
         $request = [
             
@@ -97,26 +98,7 @@ class PlacetopayController extends Controller
             'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
         ];
         
-        try {
            
-    
-            $response = $placetopay->request($request);
-        
-            if ($response->isSuccessful()) {
-                
-                $requestId = $response->requestId();
-               
-                $response->processUrl();
-            } else {
-                // There was some error so check the message
-                $response->status()->message();
-            }
-           
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-        }
-      
-
          try {
             $placetopay = new Placetopay([
                 
@@ -129,8 +111,14 @@ class PlacetopayController extends Controller
             $response = $placetopay->request($request);
         
             if ($response->isSuccessful()) {
-                // Redirect the client to the processUrl or display it on the JS extension
-                $response->processUrl();
+
+                //se crea el registro para la base de datos
+                $pp = new PlPay;
+                $pp->requestId = $response->requestId();
+                $pp->precio_compra = $respuesta->cantidad;
+                $pp->save();
+
+                return redirect($response->processUrl());
             } else {
                 // There was some error so check the message
                 // $response->status()->message();
@@ -138,20 +126,14 @@ class PlacetopayController extends Controller
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e->getMessage());
-        }
-        
-       
+        }  
 
-        return redirect($response->processUrl());
+        return 'No se pudo procesar su solicitud';
   
 }
     
     
-    public function consultar(){
-     dd($this->placetopay->query(1552542892));
-    }
-
-    public function respuesta(){
+     public function respuesta(){
 
         try {
              $placetopay = new Placetopay([
@@ -162,21 +144,26 @@ class PlacetopayController extends Controller
                 'type' => getenv('P2P_TYPE') ?: PlacetoPay::TP_REST
             ]);
             
-            $response = $placetopay->query($this->requestId);
+
+//Buscara la solicitud basado en la referencia guardada en la base de datos.
+
+            $plsolicitud = PlPay::findOrFail($_GET['reference']);
+            
+            $response = $placetopay->query($plsolicitud->requestId);
         
             if ($response->isSuccessful()) {
                 // In order to use the functions please refer to the RedirectInformation class
         
                 if ($response->status()->isApproved()) {
                     // The payment has been approved
-                    print_r($this->requestId . " PAYMENT APPROVED\n");
+                    // print_r($plsolicitud->requestId . " PAYMENT APPROVED\n");
                     // This is additional information about it
-                    print_r($response->toArray());
+                    // print_r($response->toArray());
                 } else {
-                    print_r($this->requestId . ' ' . $response->status()->message() . "\n");
+                    // print_r($plsolicitud->requestId . ' ' . $response->status()->message() . "\n");
                 }
         
-                print_r($response);
+                // print_r($response);
         
             } else {
                 // There was some error with the connection so check the message
@@ -186,9 +173,7 @@ class PlacetopayController extends Controller
             var_dump($e->getMessage());
         }
         
-        dd($this->requestId);
-
-        return view('pagos.respuesta', compact('response'));
+        return view('pagos.respuesta', ['response' => $response->toArray()]);
     }
 
 }

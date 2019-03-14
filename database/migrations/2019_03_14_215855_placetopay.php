@@ -13,7 +13,13 @@ class Placetopay extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('plPays', function (Blueprint $table){
+            $table->increments('id');
+            $table->integer('requestId');
+            $table->double('precio_compra', 11, 2);
+            $table->timestamps();
+        });
+       
     }
 
     /**
@@ -23,6 +29,6 @@ class Placetopay extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('placetopay');
     }
 }

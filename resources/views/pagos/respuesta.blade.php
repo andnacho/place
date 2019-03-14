@@ -16,23 +16,23 @@
       
     </div>
 
-{{ dd($response)}}
+
 
     <div class="container-fluid row text-center">
         
      <table class="table table-striped table-inverse col-8 mx-auto">
          <thead class="thead-inverse">
              <tr>
-                 <th>Descripción</th>
+                 <th>Referencia</th>
+                 <th>Estado</th>
                  <th>Valor</th>
-                 <th>Moneda</th>
              </tr>
              </thead>
              <tbody>
                  <tr>
-                     <td></td>
-                     <td></td>
-                     <td></td>
+                     <td>{{ $response['request']['payment']['reference']}}</td>
+                     <td>{{ $response['status']['status'] }}</td>
+                     <td>${{ $response['request']['payment']['amount']['total'] }}</td>
                  </tr>
              </tbody>
      </table>
