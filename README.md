@@ -136,6 +136,11 @@ De las vistas cabe mensionar que con ayuda de los controladores, se puede hacer 
 
 Se debe tener en cuenta que las vistas utilizadas para este test de la ruta 'pagos', son 'registrarPagoComplejo.blade.php' donde se verifica los detalles del pago antes de realizarlo y 'respuestaCompleja.blade.php' done se muestra al usuario el resumen básico de su compra.
 
+#test
+
+Hasta el momento solo se ha implementado un test para verificar que el proceso para llegar a pagar este disponible. 
+Para realizar este pequeños test unitario se deben descomentar los atributos del PlacetopayRepositorie que tienen el comentario de 'pruebas'
+
 #agradecimientos
 
 Muchas gracias a PlacetoPay por la documentación brindada para este ejercicio, fue de mucha ayuda y es muy completo, ademas agradezco mucho a dnetix por su repositorio git, el cual es utilizado en este ejercicio.
