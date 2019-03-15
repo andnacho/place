@@ -28,10 +28,10 @@ Route::get('/consultar', 'PlacetopayController@consultar');
 //Resources del almacen
  Route::resource('almacen/categoria', 'CategoriaController');
  Route::resource('almacen/articulo', 'ArticuloController');
- Route::resource('ventas/cliente', 'ClienteController');
+
  Route::resource('compras/proveedor', 'ProveedorController');
  Route::resource('compras/ingreso', 'IngresoController');
- Route::resource('ventas/ventas', 'VentaController');
+
  Route::resource('seguridad/usuario', 'UserController');
  
  
