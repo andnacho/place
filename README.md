@@ -6,6 +6,8 @@
 
 3)Se recomienda usar el comando "php artisan db:seed" para cargar la base de datos y realizar unas pruebas rápidas de la aplicación.
 
+4) Para evitar inconvenientes con las pruebas y redirecciones, se recomienda usar el servidor de pruebas como localhost y apuntando directamente a la carpeta public, de no ser así, se debe cambiar la dirección de returnUrl en la clase PlacetopayRepositorie.
+
 Nota: Si desea realizar el paso 2 y 3 en un solo comando, se puede usar el comando "php artisan migrate --seed"
 
 #Descripción de la aplicación.

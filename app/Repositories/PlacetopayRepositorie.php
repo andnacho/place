@@ -70,8 +70,14 @@ class PlacetopayRepositorie
             
             'expiration' => date('c', strtotime('+2 days')),
             'returnUrl' => 'http://localhost/response?reference=' . $reference,
-            'ipAddress' => PlacetopayRepositorie::saberIp(),
-            'userAgent' => $_SERVER['HTTP_USER_AGENT']
+            
+            // 'ipAddress' => PlacetopayRepositorie::saberIp(),
+            'ipAddress' => '192.168.1.10', //Para pruebas
+
+            // 'userAgent' => $_SERVER['HTTP_USER_AGENT']
+
+            'userAgent' =>  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36', //pruebas
+
         ];
     }
 
