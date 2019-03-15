@@ -16,6 +16,7 @@ class Placetopay extends Migration
         Schema::create('plPays', function (Blueprint $table){
             $table->increments('id');
             $table->integer('requestId');
+            $table->integer('idIngreso');
             $table->double('precio_compra', 11, 2);
             $table->timestamps();
         });
