@@ -83,7 +83,7 @@ public function respuestaCompleja(){
         } elseif($response->status()->isRejected()) {
                      
           
-            Ingreso::where('serie_comprobante', $response->payment[0]->reference())
+            Ingreso::where('serie_comprobante', $_GET['reference'])
             ->update(['estado'=> 'R']);
             return view('pagos.respuestaCompleja', ['response' => $response]);
         } else{

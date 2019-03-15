@@ -24,7 +24,7 @@ class PlacetopayRepositorie
                     'total' => $respuesta->cantidad,
                 ],
 
-                "allowPartial" => 'TRUE',
+                // "allowPartial" => 'TRUE',
             ],
 
             // "subscription" => [

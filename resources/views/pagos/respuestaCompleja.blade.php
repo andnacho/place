@@ -46,15 +46,28 @@
                          </tr>
 
                  @endif
-                 @else  
+                 @elseif($response->status()->reason() == "?C")
                   <tr>
-                        {{--  {{dd($response)}}  --}}
+                        
                         <td>{{ $_GET['reference'] }}</td>
-                        <td>Pendiente</td>
+                        <td>CANCELLED</td>
                         <td>{{ $response->requestId() }}</td>
-                        <td>No procesado</td>
+                        <td>{{ $response->requestId() }}</td>
+                        <td>Pago cancelado por el usuario</td>
                         <td>No hay pago aún</td>
                          </tr>
+                @elseif($response->status()->reason() == "PT")
+                        <tr>
+
+                          
+                        
+                <td>{{ $_GET['reference'] }}</td>
+                <td>PENDING</td>
+                <td>{{ $response->requestId() }}</td>
+                <td>No disponible</td>
+                <td>No hay pago aun</td>
+              
+                        </tr>
                  @endif
                  
              </tbody>

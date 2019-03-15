@@ -54,7 +54,7 @@
 
                             {{--  Si el pago esta en pendiente mostrará este boton  --}}
                             @elseif($ingreso->estado == 'P')
-                            <a type="button" href="http://localhost/response?reference={{$ingreso->serie_comprobante }}" class="btn btn-facebook">Confirmando...</a>
+                            <a type="button" href="http://localhost/response?reference={{$ingreso->serie_comprobante }}" class="btn btn-facebook">verificar pago...</a>
 
                               {{--  Si el pago ya esta aprobado no se mostrara el boton de pagar y se mostrará el boton para la información  --}}
                             @else
