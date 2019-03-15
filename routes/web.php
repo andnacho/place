@@ -15,7 +15,10 @@
 
 
 Route::get('/', function () {
-    return view('seguridad.usuario.login');
+
+    return redirect(route('ingreso.index'));
+
+    // return view('seguridad.usuario.login'); //Por si se desea redirigir a un panel de login.
  })->name('seguridadLogin');
  
 //routes para la generación de pago sencillo

@@ -36,7 +36,7 @@
                          
                             <th>{{ $ingreso->fecha_hora }}</th>
                             <th>{{ $ingreso->nombre }}</th>
-                            <th>{{ $ingreso->tipo_comprobante. ': '. $ingreso->serie_comprobante . '-'. $ingreso->num_comprobante  }}</th>
+                            <th>{{ $ingreso->tipo_comprobante  }}</th>
                              <th>{{ $ingreso->impuesto }}</th>
                             <th>$ {{ ($ingreso->total) }}</th>
                             <th>{{ $ingreso->estado($ingreso->estado) }}</th>
@@ -54,7 +54,7 @@
 
                             {{--  Si el pago esta en pendiente mostrará este boton  --}}
                             @elseif($ingreso->estado == 'P')
-                            <a type="button" href="" class="btn btn-facebook">Confirmando...</a>
+                            <a type="button" href="http://localhost/response?reference={{$ingreso->serie_comprobante }}" class="btn btn-facebook">Confirmando...</a>
 
                               {{--  Si el pago ya esta aprobado no se mostrara el boton de pagar y se mostrará el boton para la información  --}}
                             @else
