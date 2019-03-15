@@ -52,7 +52,7 @@ class PlacetopayController extends Controller
             var_dump($e->getMessage());
         }  
 
-        return 'No se pudo procesar su solicitud';
+        return 'No se pudo procesar su solicitud'; 
   
 }
 
