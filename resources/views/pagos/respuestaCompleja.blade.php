@@ -22,6 +22,8 @@
              </tr>
              </thead>
              <tbody>
+                 
+                 @if($response->payment !== null)
                  @if(count($response->payment) > 1)
                     @foreach ($response->payment as $pago)
                  <tr>
@@ -43,6 +45,16 @@
                         <td>{{ $response->payment[0]->amount()->from()->total() }}</td>
                          </tr>
 
+                 @endif
+                 @else  
+                  <tr>
+                        {{--  {{dd($response)}}  --}}
+                        <td>{{ $_GET['reference'] }}</td>
+                        <td>Pendiente</td>
+                        <td>{{ $response->requestId() }}</td>
+                        <td>No procesado</td>
+                        <td>No hay pago aún</td>
+                         </tr>
                  @endif
                  
              </tbody>

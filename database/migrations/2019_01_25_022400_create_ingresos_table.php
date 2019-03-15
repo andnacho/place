@@ -17,8 +17,8 @@ class CreateIngresosTable extends Migration
             $table->increments('id');
             $table->integer('idproveedor');
             $table->char('tipo_comprobante', 20);
-            $table->char('serie_comprobante', 7)->nullable();
-            $table->char('num_comprobante', 10);
+            $table->char('serie_comprobante', 20)->nullable();
+            $table->char('num_comprobante', 20);
             $table->date('fecha_hora');
             $table->decimal('impuesto', 4, 2);
             $table->char('estado', 20);

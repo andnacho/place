@@ -45,14 +45,14 @@
             <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
               <label for="serie_comprobante">Serie Comprobante</label>
               <input type="text"
-                class="form-control" name="serie_comprobante" id="serie_comprobante" value="{{ $contadorPlpay+1 }}" readonly>
+                class="form-control" name="serie_comprobante" id="serie_comprobante" value="{{  time() }}" readonly>
            
             </div>
 
             <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
                 <label for="num_comprobante">Número del Comprobante</label>
                 <input type="text"
-                  class="form-control" name="num_comprobante" id="num_comprobante" required value="{{ $contadorPlpay+1 }}" readonly>
+                  class="form-control" name="num_comprobante" id="num_comprobante" required value="{{ time() }}" readonly>
              
            </div>
           </div>

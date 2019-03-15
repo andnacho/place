@@ -47,10 +47,16 @@
                             
                            
 
-                            {{--  Si el pago ya esta aprobado no se mostrara el boton de pagar  --}}
-                            @if ($ingreso->estado != 'A')
+                          
+                            @if ($ingreso->estado == 'B' || $ingreso->estado == 'R')
                             <a type="button" href="{{ route('ingreso.pagar', $ingreso->id) }}" class="btn btn-success">Pagar</a>
                             <a data-target="#modal-delete-{{ $ingreso->id }}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+
+                            {{--  Si el pago esta en pendiente mostrará este boton  --}}
+                            @elseif($ingreso->estado == 'P')
+                            <a type="button" href="" class="btn btn-facebook">Confirmando...</a>
+
+                              {{--  Si el pago ya esta aprobado no se mostrara el boton de pagar y se mostrará el boton para la información  --}}
                             @else
                             <a type="button" href="http://localhost/response?reference={{$ingreso->serie_comprobante }}" class="btn btn-success">Ver pago</a>
                             @endif

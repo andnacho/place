@@ -8,7 +8,7 @@ class PlPay extends Model
 {
     //
 
-    protected $table = 'plpays';
+    protected $table = 'pl_pays';
 
     protected $fillable = [
         'id', 'requestId', 'precio_compra',

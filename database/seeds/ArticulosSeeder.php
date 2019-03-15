@@ -21,10 +21,10 @@ class ArticulosSeeder extends Seeder
         Articulo::create([
             'idcategoria' => $i,
             'codigo' => '00'.$i,
-            'nombre' => $faker->name,
+            'nombre' => $faker->word,
             'descripcion' => $faker->name,
             'stock' => $faker->numberBetween(10, 20),
-            'estado' => 'A',
+            'estado' => '1',
            
             
         ]);

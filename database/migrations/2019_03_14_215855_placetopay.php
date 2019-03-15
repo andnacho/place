@@ -13,10 +13,10 @@ class Placetopay extends Migration
      */
     public function up()
     {
-        Schema::create('plPays', function (Blueprint $table){
+        Schema::create('pl_pays', function (Blueprint $table){
             $table->increments('id');
             $table->integer('requestId');
-            $table->integer('idIngreso');
+            $table->integer('refIngreso');
             $table->double('precio_compra', 11, 2);
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class Placetopay extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('placetopay');
+        Schema::dropIfExists('pl_pays');
     }
 }

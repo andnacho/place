@@ -24,6 +24,7 @@
                   </label>
                   </div>
       
+          <input type="number" name="idIngreso" value='{{ $ingresos->id }}' hidden></input>
             
             <div class="form-group container">
             <label for="moneda" class="col-3">Tipo de moneda</label>

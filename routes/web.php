@@ -20,8 +20,10 @@ Route::get('/', function () {
  
 //routes para la generación de pago sencillo
 Route::view('/pagos', 'pagos.registrarPago');
-Route::post('/rest', 'PlacetopayController@pago')->name('pagos.registro');
-Route::get('/response', 'PlacetopayController@respuestaCompleja')->name('pagos.respuesta'); 
+
+Route::post('/rest', 'PlacetopayController@pagoComplejo')->name('pagos.registro');
+Route::get('/response', 'PlacetopayController@respuestaCompleja')->name('pagos.respuestaCompleja'); 
+// Route::post('/rest', 'PlacetopayController@pago')->name('pagos.registro');
 // Route::get('/response', 'PlacetopayController@respuesta')->name('pagos.respuesta'); respuesta sencilla
 Route::get('/consultar', 'PlacetopayController@consultar');
 
