@@ -145,3 +145,5 @@ Para realizar este pequeños test unitario se deben descomentar los atributos de
 
 Muchas gracias a PlacetoPay por la documentación brindada para este ejercicio, fue de mucha ayuda y es muy completo, ademas agradezco mucho a dnetix por su repositorio git, el cual es utilizado en este ejercicio.
 
+#Si surge alguna duda con respecto a la aplicación o su funcionalidad pueden contactarse al correo andnachocas@gmail.com y su duda será resuelta con la mayor prevedad posible.
+
