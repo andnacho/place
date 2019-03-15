@@ -68,12 +68,11 @@ class PlacetopayControllerTest extends TestCase
                 return redirect($response->processUrl());
                 
             } else {
-                // There was some error so check the message
-                // $response->status()->message();
+               
             }
-            var_dump($response);
+           
         } catch (Exception $e) {
-            var_dump($e->getMessage());
+           
         }  
         
     }
