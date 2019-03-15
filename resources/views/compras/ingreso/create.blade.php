@@ -35,9 +35,9 @@
               <label for="tipo_comprobante">Tipo Comprobante</label>
               <select class="form-control" name="tipo_comprobante" id="tipo_comprobante">
                
-               <option value="Boleta">Boleta</option>
+               {{--  <option value="Boleta">Boleta</option>  --}}
                <option value="Factura">Factura</option>
-               <option value="Ticket">Ticket</option>
+               {{--  <option value="Ticket">Ticket</option>  --}}
 
               </select>
             </div>
@@ -45,14 +45,14 @@
             <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
               <label for="serie_comprobante">Serie Comprobante</label>
               <input type="text"
-                class="form-control" name="serie_comprobante" id="serie_comprobante" value="{{ old('serie_comprobante') }}" placeholder="Serie de comprobante"aria-describedby="helpId">
+                class="form-control" name="serie_comprobante" id="serie_comprobante" value="{{ $contadorPlpay+1 }}" readonly>
            
             </div>
 
             <div class="form-group col-lg-4 col-sm-4 col-md-4 col-xs-12">
                 <label for="num_comprobante">Número del Comprobante</label>
                 <input type="text"
-                  class="form-control" name="num_comprobante" id="num_comprobante" required value="{{ old('num_comprobante') }}" placeholder="Numero del comprobante"aria-describedby="helpId">
+                  class="form-control" name="num_comprobante" id="num_comprobante" required value="{{ $contadorPlpay+1 }}" readonly>
              
            </div>
           </div>

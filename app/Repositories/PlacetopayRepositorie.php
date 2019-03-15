@@ -16,7 +16,6 @@ class PlacetopayRepositorie
 
         return [
                       
-
             'payment' => [
                 'reference' => $reference,
                 'description' => $respuesta->descripcion,
@@ -66,11 +65,13 @@ class PlacetopayRepositorie
                 ]
             ],
 
+        
+
             
             'expiration' => date('c', strtotime('+2 days')),
-            'returnUrl' => 'http://localhost/placetopay/public/response?reference=' . $reference,
-            'ipAddress' => '127.0.0.1',
-            'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
+            'returnUrl' => 'http://localhost/response?reference=' . $reference,
+            'ipAddress' => PlacetopayRepositorie::saberIp(),
+            'userAgent' => $_SERVER['HTTP_USER_AGENT']
         ];
     }
 
@@ -84,6 +85,18 @@ class PlacetopayRepositorie
             'type' => getenv('P2P_TYPE') ?: PlacetoPay::TP_REST
         ];
 
+    }
+
+    //Para saber el ip
+    static private function saberIp(){
+
+         if (!empty($_SERVER['HTTP_CLIENT_IP']))
+            return $_SERVER['HTTP_CLIENT_IP'];
+           
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+       
+        return $_SERVER['REMOTE_ADDR'];
     }
 
 }

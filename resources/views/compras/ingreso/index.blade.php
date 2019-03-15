@@ -3,7 +3,7 @@
 @section('contenido')
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <h3>Listado de Ingresos <a name="" id="" class="btn btn-success" href="{{ route('ingreso.create')}}" role="button">Nuevo</a></h3>
+        <h3>Listado de Ingresos <a name="" id="" class="btn btn-info" href="{{ route('ingreso.create')}}" role="button">Nuevo</a></h3>
         @include('compras.ingreso.search')
         </div>
     </div>
@@ -39,12 +39,22 @@
                             <th>{{ $ingreso->tipo_comprobante. ': '. $ingreso->serie_comprobante . '-'. $ingreso->num_comprobante  }}</th>
                              <th>{{ $ingreso->impuesto }}</th>
                             <th>$ {{ ($ingreso->total) }}</th>
-                            <th>{{$ingreso->estado == 'A' ? 'Aprobado' : 'Rechazado' }}</th>
+                            <th>{{ $ingreso->estado($ingreso->estado) }}</th>
                              
                             <th>
                             {{-- <a name="" id="" class="btn btn-danger" href="{{ route($ingresoegoria.destroy', ['id' => $ingreso->id]) }}" role="button">Eliminar</a> --}}
-                            <a type="button" href="{{ route('ingreso.show', $ingreso->id) }}" class="btn btn-primary">Detalles</a>
+                            <a type="button" href="{{ route('ingreso.show', $ingreso->id) }}" class="btn btn-primary">Ver pedido</a>
+                            
+                           
+
+                            {{--  Si el pago ya esta aprobado no se mostrara el boton de pagar  --}}
+                            @if ($ingreso->estado != 'A')
+                            <a type="button" href="{{ route('ingreso.pagar', $ingreso->id) }}" class="btn btn-success">Pagar</a>
                             <a data-target="#modal-delete-{{ $ingreso->id }}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+                            @else
+                            <a type="button" href="http://localhost/response?reference={{$ingreso->serie_comprobante }}" class="btn btn-success">Ver pago</a>
+                            @endif
+
                             </th>
                         </tr>
 

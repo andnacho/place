@@ -21,17 +21,17 @@ Route::get('/', function () {
 //routes para la generación de pago sencillo
 Route::view('/pagos', 'pagos.registrarPago');
 Route::post('/rest', 'PlacetopayController@pago')->name('pagos.registro');
-Route::get('/response', 'PlacetopayController@respuesta')->name('pagos.respuesta');
+Route::get('/response', 'PlacetopayController@respuestaCompleja')->name('pagos.respuesta'); 
+// Route::get('/response', 'PlacetopayController@respuesta')->name('pagos.respuesta'); respuesta sencilla
 Route::get('/consultar', 'PlacetopayController@consultar');
 
 
 //Resources del almacen
  Route::resource('almacen/categoria', 'CategoriaController');
  Route::resource('almacen/articulo', 'ArticuloController');
-
  Route::resource('compras/proveedor', 'ProveedorController');
  Route::resource('compras/ingreso', 'IngresoController');
-
+ Route::get('compas/{id}/pagar', 'IngresoController@pagar')->name('ingreso.pagar');
  Route::resource('seguridad/usuario', 'UserController');
  
  

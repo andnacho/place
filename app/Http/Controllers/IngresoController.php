@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Response;
+use App\PlPay;
 use App\Ingreso;
 use App\Persona;
-use App\Articulo;
 
+use App\Articulo;
 use Carbon\Carbon;
 use App\DetalleIngreso;
 use Illuminate\Http\Request;
@@ -20,6 +21,39 @@ class IngresoController extends Controller
         // $this->middleware('auth');
            
     }
+
+//Para realizar el pago a travez del placetopay
+    public function pagar($id){
+
+        $ingresos=Ingreso::join('personas as p', "ingresos.idproveedor", '=', 'p.id')
+        ->join('detalle_ingresos as di', 'ingresos.id', '=', 'di.idingreso')
+        ->select('ingresos.id',
+         'ingresos.fecha_hora', 
+         'p.nombre',
+         'ingresos.tipo_comprobante',
+         'ingresos.serie_comprobante',
+         'ingresos.num_comprobante', 
+         'ingresos.impuesto','ingresos.estado',
+          DB::raw("sum(di.cantidad*precio_compra) as total"))
+          ->where('ingresos.id', '=', $id)
+          ->groupBy('ingresos.id',
+          'ingresos.fecha_hora',
+          'p.nombre',
+          'ingresos.tipo_comprobante',
+          'ingresos.serie_comprobante',
+          'ingresos.num_comprobante', 
+          'ingresos.impuesto','ingresos.estado')
+          ->first();
+
+        $detalles = DetalleIngreso::join('articulos as a', 'detalle_ingresos.idarticulo', '=', 'a.id')
+        ->select('a.nombre as articulo', 'detalle_ingresos.cantidad', 'detalle_ingresos.precio_compra', 'detalle_ingresos.precio_venta')
+        ->where('detalle_ingresos.idingreso', '=', $id)
+        ->get();
+
+        return view('pagos.registrarPagoComplejo', compact("ingresos", "detalles"));
+
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -41,7 +75,10 @@ class IngresoController extends Controller
             'ingresos.impuesto','ingresos.estado',
              DB::raw("sum(di.cantidad*precio_compra) as total"))
              ->where('ingresos.num_comprobante', 'LIKE', '%'.$searchText.'%')
-             ->orwhere('ingresos.estado', '=', 'A')
+             ->where('ingresos.estado', '=', 'A')
+             ->orwhere('ingresos.estado', '=', 'B')
+             ->orwhere('ingresos.estado', '=', 'R')
+             ->orwhere('ingresos.estado', '=', 'P')
              ->orderBy('ingresos.id', 'desc')
               ->groupBy('ingresos.id',
              'ingresos.fecha_hora',
@@ -68,8 +105,12 @@ class IngresoController extends Controller
         $articulos = Articulo::raw('CONCAT(artitulos.codigo, " ", articulos.nombre)')
         ->where('articulos.estado', '=', '1')
         ->get();
+
+        $contadorPlpay = Ingreso::count();
+
+
         
-        return view('compras.ingreso.create', compact('personas', 'articulos'));
+        return view('compras.ingreso.create', compact('personas', 'articulos', 'contadorPlpay'));
         
     }
 
@@ -95,8 +136,9 @@ class IngresoController extends Controller
             
             $mytime = Carbon::now('America/Bogota');
             $ingreso->fecha_hora = $mytime->toDateTimeString();
-            $ingreso->impuesto = '18';
-            $ingreso->estado = 'A';
+            $ingreso->impuesto = '20';
+
+            $ingreso->estado = 'B';
                         
             $ingreso->save();
             
@@ -185,7 +227,7 @@ class IngresoController extends Controller
         //
         $ingreso = Ingreso::findOrFail($id);
         $ingreso->Estado = 'c';
-        $persona->update(); 
+        $ingreso->update(); 
         
         return redirect('compras/ingreso');
 

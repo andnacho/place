@@ -30,4 +30,17 @@ class Ingreso extends Model
      {
          self::getConnectionResolver()->connection()->rollBack();
      }    
+
+     public function estado($estado){
+            if($estado == 'A')
+             return 'Aprobado';
+                        
+             elseif($estado == 'R')
+             return "Rechazado";
+
+             elseif($estado == 'P')
+             return "Pendiente";
+
+             else return 'Sin procesar';
+     }
 }

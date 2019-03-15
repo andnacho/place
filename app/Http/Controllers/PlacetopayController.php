@@ -3,35 +3,95 @@
 namespace App\Http\Controllers;
 
 use App\PlPay;
+use App\Ingreso;
 use Illuminate\Http\Request;
 use Dnetix\Redirection\PlacetoPay;
 use App\Repositories\PlacetopayRepositorie;
 
 class PlacetopayController extends Controller
 {
-      
-    public $placetopay;
-     
-    
-    
-    public function __construct()
-    {
   
+    //Pagos complejos desde el enlace de localhost/compras/ingreso
+  
+    public function pagoComplejo(Request $respuesta){
+        
+        $reference = $respuesta->reference;
 
-    $this->placetopay = new PlacetoPay(
-        [
+        // Request Information, through a PlacetopayRepositorie
+        $request = PlacetopayRepositorie::request($respuesta, $reference);
+        
+           
+         try {
 
-        'login' => '6dd490faf9cb87a9862245da41170ff2',
-        'tranKey' => '024h1IlD',
-        'url' => 'https://dev.placetopay.com/redirection',
-        'type' => getenv('P2P_TYPE') ?: PlacetoPay::TP_REST
+            //Credenciales establecidas desde el Repositorio\PlacetopayRepositorie
 
-    ]
-);
-    
+            $placetopay = new Placetopay(PlacetopayRepositorie::credenciales());
+
+
+            $response = $placetopay->request($request);
+        
+            if ($response->isSuccessful()) {
+
+                //se crea el registro para la base de datos
+                $pp = new PlPay;
+                $pp->requestId = $response->requestId();
+                $pp->precio_compra = $respuesta->cantidad;
+                $pp->save();
+
+                return redirect($response->processUrl());
+            } else {
+                // There was some error so check the message
+                // $response->status()->message();
+            }
+            var_dump($response);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+        }  
+
+        return 'No se pudo procesar su solicitud';
+  
+}
+
+public function respuestaCompleja(){
+
+    try {
+         $placetopay = new Placetopay(PlacetopayRepositorie::credenciales());
+        
+
+    //Buscara la solicitud basado en la referencia guardada en la base de datos.
+
+    $plsolicitud = PlPay::findOrFail($_GET['reference']);
+    $response = $placetopay->query($plsolicitud->requestId);
+
+        if ($response->status()->isApproved()) {
+
+            //si es aprobado
+        
+           Ingreso::where('serie_comprobante', $response->payment[0]->reference())
+           ->update(['estado'=> 'A']);
+
+          return view('pagos.respuestaCompleja', ['response' => $response]);
+
+        } else {
+            print_r($plsolicitud->requestId . ' ' . $response->status()->message() . "\n");
+            Ingreso::where('serie_comprobante', $response->payment[0]->reference())
+            ->update(['estado'=> 'R']);
+            return view('pagos.respuestaCompleja', ['response' => $response]);
+        }
+
+
+    } catch (Exception $e) {
+        var_dump($e->getMessage());
     }
+    
 
-   
+}
+
+//----------------------------------------------------------------//
+
+
+
+   //Pagos sencillos desde el link localhost/pagos
     public function pago(Request $respuesta){
 
        
@@ -43,13 +103,11 @@ class PlacetopayController extends Controller
         
            
          try {
-            $placetopay = new Placetopay([
-                
-                'login' => '6dd490faf9cb87a9862245da41170ff2',
-                'tranKey' => '024h1IlD',
-                'url' => 'https://test.placetopay.com/redirection',
-                'type' => getenv('P2P_TYPE') ?: PlacetoPay::TP_REST
-            ]);
+
+            //Credenciales establecidas desde el Repositorio\PlacetopayRepositorie
+
+            $placetopay = new Placetopay(PlacetopayRepositorie::credenciales());
+
 
             $response = $placetopay->request($request);
         
